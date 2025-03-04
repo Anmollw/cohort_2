@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        let timeout;
+        function debouncepopulatediv(){
+            clearTimeout(timeout);
+            timeout = setTimeout(function(){
+                populatediv()
+            },1000);
+        }
+
+        function populatediv(){
+            const a= document.getElementById("fn").value;
+            const b = document.getElementById("sn").value;
+            fetch("https://sum-backend.onrender.com/?a="+ a + "&b=" + b)
+              .then(function(response){
+                response.text()
+                  .then(function(ans){
+                    document.getElementById("finalsum".innerHTML=ans);
+                  })
+              })
+        }
+    </script>
+    <body>
+        <input oninput="debouncepopulatediv" type="text" placeholder="First number"><br></br>
+        <input oninput="debouncepopulatediv" type="text" placeholder="Second number"><br></br>
+        <div id="finalsum"></div>
+    </body>
